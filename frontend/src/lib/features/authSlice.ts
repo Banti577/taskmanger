@@ -10,8 +10,6 @@ export const checkAuth = createAsyncThunk<AuthResponse | null>("auth/getUser",
             });
             const data = await res.json();
 
-            console.log('dataa is reduxe', data)
-
             return data;
         }
         catch (err) {

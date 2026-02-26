@@ -11,12 +11,13 @@ import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/navigation";
 
 import { logout } from "@/lib/features/authSlice";
+import { useAppSelector } from "@/lib/redux/type";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const auth = useSelector((store) => store.Auth);
+  const auth = useAppSelector((store ) => store.Auth);
 
   const handleLogout = async () => {
     try {
