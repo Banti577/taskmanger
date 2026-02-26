@@ -23,7 +23,7 @@ async function dbConnect() {
       return mongoose;
     }).catch((err) => {
       console.error('MongoDB connection error:', err);
-      throw err; 
+      throw err;
     });
   }
   cached.conn = await cached.promise;
