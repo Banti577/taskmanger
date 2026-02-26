@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { statusColors } from "../utils/Constants";
 
-import { TaskCardProps } from '@/lib/types/interface'
+import { TaskCardProps } from '@/lib/types/taskInterface/taskInterface'
 
 const TaskCard = ({ tasks }: TaskCardProps) => {
 
