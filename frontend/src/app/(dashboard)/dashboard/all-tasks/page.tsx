@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import TaskCard from "./TaskCard";
 
-import { TaskDocument } from "@/lib/types/interface";
+import { TaskDocument } from "@/lib/types/taskInterface/taskInterface";
 
 const Viewtasks = () => {
   const [tasks, setTasks] = useState<TaskDocument[]>([]);

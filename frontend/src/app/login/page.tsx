@@ -9,15 +9,18 @@ import { IoMdEye } from "react-icons/io";
 
 import { useRouter } from "next/navigation";
 
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 import { validators } from "@/constants/validation";
 import { checkAuth } from "@/lib/features/authSlice";
-import { UserInterface, FormErrorsInterface } from "@/lib/types/interface";
+import { FormErrorsInterface } from "@/lib/types/interface";
+
+import { useAppDispatch, useAppSelector } from '@/lib/redux/type';
+
+import { SignupUser } from '@/lib/types/AuthInterface/authInterface'
 
 const LoginAndSignupPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [isLogin, setLogin] = useState(true);
@@ -25,7 +28,7 @@ const LoginAndSignupPage = () => {
   const [showPassword, isShowPassword] = useState(false);
   const [input, setInput] =
     useState<
-      UserInterface>
+      SignupUser>
       ({
         fullname: '',
         email: '',

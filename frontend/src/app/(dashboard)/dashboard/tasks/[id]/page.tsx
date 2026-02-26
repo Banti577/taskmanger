@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from 'react'
 
 import Loader from '@/components/Loader';
-import { TaskDocument } from '@/lib/types/interface'
+import { TaskDocument } from '@/lib/types/taskInterface/taskInterface'
 
 const TasksdetailsPage = () => {
     const { id } = useParams();

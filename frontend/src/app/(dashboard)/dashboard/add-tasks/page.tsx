@@ -6,17 +6,19 @@ import toast from "react-hot-toast";
 
 import { useState } from "react";
 
+import {Task} from '@/lib/types/taskInterface/taskInterface'
+
 const AddTasks = () => {
-  const [task, setTask] = useState({
-    taskTitle: "",
-    taskDesc: "",
+  const [task, setTask] = useState<Task>({
+    taskTitle: '',
+    taskDesc: '',
     status: "Upcoming",
     category: "Other",
   });
 
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (task.taskDesc == "" || task.taskTitle == "") {
@@ -49,7 +51,7 @@ const AddTasks = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setTask((prev) => ({ ...prev, [name]: value }));
   };

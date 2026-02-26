@@ -4,11 +4,14 @@ import User from '../Models/usersModel'
 
 import { generatejwttoken } from '../services/authentication';
 import { SignupUser, LoginUser } from '@/lib/types/AuthInterface/authInterface';
+import {MUser} from '@/lib/types/ModelInterface/usermodel.interface'
+
 
 export const handleSignup = async (body: SignupUser) => {
     const { fullname, email, password, gender } = body;
 
-    const isExist = await User.findOne({ email });
+    const isExist: MUser | null = await User.findOne({ email });
+
     if (isExist) {
         throw new Error("User already exists");
     }
@@ -31,7 +34,7 @@ export const handleSignup = async (body: SignupUser) => {
 export const handleLogin = async (body: LoginUser) => {
 
     const { email, password } = body;
-    const isExist = await User.findOne({ email })
+    const isExist:MUser | null = await User.findOne({ email })
 
     if (!isExist) {
         throw new Error("User not found");

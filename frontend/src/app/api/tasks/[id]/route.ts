@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import mongoose, {Types} from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 import { getTasks, updateTasks, deleteTasks } from '@/app/api/controller/taskController';
 import { verifyJwtToken } from '../../middleware/checkAuth';
@@ -35,7 +35,7 @@ export async function PUT(request: NextRequest, { params }) {
 
 export async function DELETE(request: NextRequest, { params }) {
     try {
-        const { id} = await params;
+        const { id } = await params;
 
         if (!mongoose.isValidObjectId(id)) {
             return NextResponse.json({ msg: "Invalid ID format" }, { status: 400 });

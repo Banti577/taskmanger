@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import handler from '../connectDB';
 
 import { addTasks, getAllTasks } from '../controller/taskController';
@@ -8,7 +8,7 @@ import {Tasks} from '@/lib/types/taskInterface/taskInterface'
 
 
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   try {
     await handler();
     const user = await verifyJwtToken();
@@ -21,7 +21,7 @@ export async function GET(request) {
 }
 
 
-export async function POST(request) {
+export async function POST(request : NextRequest) {
   try {
     await handler();
     const user = await verifyJwtToken();

@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { AuthState } from '@/lib/types/interface'
+import { AuthState, AuthResponse } from '@/lib/types/interface'
 
-export const checkAuth = createAsyncThunk("auth/getUser",
+export const checkAuth = createAsyncThunk<AuthResponse | null>("auth/getUser",
     async () => {
         try {
             const res = await fetch(`/api/user`, {
@@ -46,6 +46,7 @@ const authSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(checkAuth.fulfilled, (state, action) => {
+                console.log('action payload 888 ', action.payload)
                 state.user = action.payload.user;
 
                 state.isLoading = false;

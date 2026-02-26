@@ -1,8 +1,9 @@
 import { memo } from "react";
 
 import { statusColors } from "./utils/Constants";
+import {AnalyseDashProps} from '@/lib/types/frontendInterface'
 
-const AnalyseDataCart = memo(({ categoryCounts }) => {
+const AnalyseDataCart = memo(({ categoryCounts }: AnalyseDashProps) => {
   return (
     <div className=" flex justify-center">
       {Object.entries(categoryCounts).map(([status, count]) => {

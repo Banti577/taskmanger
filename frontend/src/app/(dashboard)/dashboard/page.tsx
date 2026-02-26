@@ -3,19 +3,23 @@
 import axios from "axios";
 
 import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+
+
+import { CategoryCount } from '@/lib/types/frontendInterface'
+import { useAppSelector } from "@/lib/redux/type";
 
 import Loader from "@/components/Loader";
 import AnalyseDataCart from "./AnalyseDataCart";
 
+
 const Deshboard = () => {
-  const auth = useSelector((store) => store.Auth);
+  const auth = useAppSelector((store) => store.Auth);
   const { user } = auth;
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const categoryCounts = useMemo(() => {
+  const categoryCounts: CategoryCount = useMemo(() => {
     return tasks.reduce((acc, item) => {
       acc[item.status] = (acc[item.status] || 0) + 1;
       return acc;

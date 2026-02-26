@@ -8,7 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import { useState, useEffect } from "react";
 
-import { Task, TaskDocument } from '@/lib/types/interface'
+import { Task, TaskDocument } from '@/lib/types/taskInterface/taskInterface'
 
 const EditTasks = () => {
 
@@ -66,7 +66,7 @@ const EditTasks = () => {
 
       console.log('response is ', response)
 
-      toast.success(response?.data?.msg || response?.data?.data || response?.data?.data|| response);
+      toast.success(response?.data?.msg || response?.data?.data || response?.data?.data || response);
       router.push(`/dashboard/tasks/${id}`);
     } catch (err) {
       console.log(err);
@@ -77,7 +77,7 @@ const EditTasks = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setTask((prev) => ({ ...prev, [name]: value }));
   };

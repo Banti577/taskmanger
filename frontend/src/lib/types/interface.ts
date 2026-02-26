@@ -1,10 +1,3 @@
-export interface UserInterface {
-    fullname?: string,
-    email: string,
-    password: string,
-    gender?: string
-
-}
 export interface AuthUser {
     id: string,
     fullname: string,
@@ -19,28 +12,26 @@ export interface AuthState {
     isChecked: boolean
 
 }
+
+export interface User {
+  id: string;
+  fullname: string;
+  email: string;
+  gender: string;
+  exp: number;
+  iat: number;
+}
+
+export interface AuthResponse {
+  msg: string;
+  user: User;
+}
+
+
+
 export interface FormErrorsInterface {
     fullname?: string;
     email: string;
     password: string;
     gender?: string;
 }
-
-export interface Task {
-    taskTitle: string,
-    taskDesc: string,
-    status: string,
-    category: string,
-}
-
-export interface TaskDocument extends Task {
-    createdAt: string,
-    createdBy: string,
-    updatedAt: string,
-    _id: string,
-    __v: string
-}
-export interface TaskCardProps {
-    tasks: TaskDocument[];
-}
-

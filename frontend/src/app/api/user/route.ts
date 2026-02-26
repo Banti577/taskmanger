@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
 
 import { verifyJwtToken } from "../middleware/checkAuth";
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
 
     try {
         const cookieStore = await cookies();
@@ -17,7 +17,7 @@ export async function GET(request) {
             );
         }
 
-        const user = await verifyJwtToken(token);
+        const user = await verifyJwtToken();
 
         return NextResponse.json(
             { msg: "Protected data", user },
