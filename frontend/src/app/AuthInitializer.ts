@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, ReactNode } from 'react';
 import { useAppDispatch } from '@/lib/redux/type';
 import { checkAuth } from '../lib/features/authSlice';
 
-export default function AuthInitializer({ children }) {
+type AuthInitializerProps = {
+    children: ReactNode;
+};
+
+export default function AuthInitializer({ children }: AuthInitializerProps) {
     const dispatch = useAppDispatch();
 
     useEffect(() => {

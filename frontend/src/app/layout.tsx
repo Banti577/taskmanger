@@ -5,9 +5,9 @@ import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 
 import StoreProvider from "./StoreProvider";
-import AuthInitializer from './AuthInitializer'
 
 import LayoutWrapper from "../components/LayoutWrapper";
+import AuthInitializer from "./AuthInitializer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,15 +36,19 @@ export default function RootLayout({ children }) {
 
           <div className="flex flex-col min-h-screen">
             <LayoutWrapper>
-              <AuthInitializer />
+              <AuthInitializer>
 
+            
               <div className="flex-1">
                 {children}
 
                 <Toaster />
               </div>
+                </AuthInitializer>
             </LayoutWrapper>
+
           </div>
+
         </ StoreProvider>
       </body>
     </html>
