@@ -11,17 +11,26 @@ import { useEffect, useState } from 'react'
 
 import Loader from '@/components/Loader';
 import { TaskDocument } from '@/lib/types/taskInterface/taskInterface'
+import { useAppSelector } from '@/lib/redux/type';
 
 const TasksdetailsPage = () => {
+
+    const accessToken = useAppSelector(store => store.Auth.accessToken)
     const { id } = useParams();
     const [task, setTask] = useState<TaskDocument>(null)
     const [loading, setLoading] = useState(false)
 
+
     useEffect(() => {
+        if (!accessToken) return
         const fetchTask = async () => {
             try {
                 setLoading(true)
-                const response = await axios(`/api/tasks/${id}`, { withCredentials: true })
+                const response = await axios(`/api/tasks/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken} `
+                    }
+                })
                 setTask(response.data)
             } catch (err) {
                 toast.error(
@@ -36,7 +45,7 @@ const TasksdetailsPage = () => {
             }
         }
         fetchTask();
-    }, [])
+    }, [accessToken])
 
     const handleDeleteTask = async (id) => {
         const shouldDelete = confirm("Are you sure you want to delete this task ?");
@@ -45,7 +54,11 @@ const TasksdetailsPage = () => {
             return
         }
         try {
-            const response = await axios.delete(`/api/tasks/${id}`);
+            const response = await axios.delete(`/api/tasks/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
             setTask(null)
 
             toast.success(response.data.msg || response.data);

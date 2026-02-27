@@ -4,14 +4,22 @@ import handler from '../connectDB';
 import { addTasks, getAllTasks } from '../controller/taskController';
 import { verifyJwtToken } from '../middleware/checkAuth';
 
-import {Tasks} from '@/lib/types/taskInterface/taskInterface'
+import { Tasks } from '@/lib/types/taskInterface/taskInterface'
 
 
 
 export async function GET(request: NextRequest) {
   try {
     await handler();
-    const user = await verifyJwtToken();
+
+    const authorization = request.headers.get('Authorization');
+
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+      return new NextResponse('Unauthorized: Bearer token missing or invalid', { status: 401 });
+    }
+
+    const accressToken = authorization.split(' ')[1];
+    const user = await verifyJwtToken(accressToken);
     const tasks = await getAllTasks(user.id)
     return NextResponse.json(tasks, { status: 200 });
 
@@ -21,15 +29,22 @@ export async function GET(request: NextRequest) {
 }
 
 
-export async function POST(request : NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     await handler();
-    const user = await verifyJwtToken();
+
+    const authorization = request.headers.get('Authorization');
+
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+      return new NextResponse('Unauthorized: Bearer token missing or invalid', { status: 401 });
+    }
+
+    const accressToken = authorization.split(' ')[1];
+    const user = await verifyJwtToken(accressToken);
+    
     const body: Tasks = await request.json();
 
-    const userid = user.id;
-
-    const msg = await addTasks(userid, body);
+    const msg = await addTasks(user.id, body);
     return NextResponse.json({ msg: 'Task Added' }, { status: 200 });
 
   } catch (err) {

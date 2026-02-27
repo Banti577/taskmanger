@@ -19,6 +19,8 @@ const Navbar = () => {
 
   const auth = useAppSelector((store ) => store.Auth);
 
+  console.log('navbar me user is', auth.user)
+
   const handleLogout = async () => {
     try {
       const response = await axios(
@@ -59,7 +61,7 @@ const Navbar = () => {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 bg-gray-800/50 px-3 py-1.5  border border-gray-700">
                 <CgProfile />
-                <span className="text-gray-200">{auth.user.fullname}</span>
+                <span className="text-gray-200">{auth.user.fullName}</span>
               </div>
               <li
                 onClick={handleLogout}

@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema<MUser>({
         type: String,
         enum: ['male', 'female', 'other'],
         required: true,
+    },
+    refreshToken:{
+        type: String, 
     }
 }, { timestamps: true })
 

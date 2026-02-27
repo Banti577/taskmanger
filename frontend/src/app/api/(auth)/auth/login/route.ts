@@ -11,12 +11,15 @@ export async function POST(request: NextRequest) {
         await handler()
         const body: LoginUser = await request.json();
 
-        const { user, token } = await handleLogin(body);
+        const { user, accessToken, refreshToken } = await handleLogin(body);
         const cookieStore = await cookies();
 
-        cookieStore.set("token", token, {
+        user.refreshToken = refreshToken
+        await user.save()
+
+        cookieStore.set("token", refreshToken, {
             httpOnly: true,
-            maxAge: 60 * 60,
+            maxAge: 10 * 24 * 60 * 60 * 1000,
             sameSite: "lax",
         });
 

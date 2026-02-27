@@ -14,7 +14,7 @@ import AnalyseDataCart from "./AnalyseDataCart";
 
 const Deshboard = () => {
   const auth = useAppSelector((store) => store.Auth);
-  const { user } = auth;
+  const { user, accessToken } = auth;
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,12 @@ const Deshboard = () => {
     const fetchTask = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`/api/tasks`);
+
+        const response = await axios.get(`/api/tasks`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
 
         if (response.status === 200) {
           setTasks(response.data);
@@ -49,7 +54,7 @@ const Deshboard = () => {
   return (
     <div>
       <div className="text-2xl">
-        <span>Hii,</span> {user && user.fullname}
+        <span>Hii,</span> {user && user.fullname || user.fullName}
       </div>
 
       <AnalyseDataCart categoryCounts={categoryCounts} />

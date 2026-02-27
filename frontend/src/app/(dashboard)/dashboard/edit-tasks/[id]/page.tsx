@@ -9,10 +9,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 import { Task, TaskDocument } from '@/lib/types/taskInterface/taskInterface'
+import { useAppSelector } from "@/lib/redux/type";
 
 const EditTasks = () => {
 
   const { id } = useParams();
+
+  const  accessToken = useAppSelector(store => store.Auth.accessToken)
+
 
   const [task, setTask] = useState<Task>({
     taskTitle: '',
@@ -26,7 +30,11 @@ const EditTasks = () => {
     const fetchTask = async () => {
       try {
         setLoading(true);
-        const response = await axios<TaskDocument>(`/api/tasks/${id}`);
+        const response = await axios<TaskDocument>(`/api/tasks/${id}`,{
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
         setTask(response.data);
         console.log(response);
       } catch (err) {

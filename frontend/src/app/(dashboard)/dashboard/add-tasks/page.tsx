@@ -6,7 +6,8 @@ import toast from "react-hot-toast";
 
 import { useState } from "react";
 
-import {Task} from '@/lib/types/taskInterface/taskInterface'
+import { Task } from '@/lib/types/taskInterface/taskInterface'
+import { useAppSelector } from "@/lib/redux/type";
 
 const AddTasks = () => {
   const [task, setTask] = useState<Task>({
@@ -15,6 +16,9 @@ const AddTasks = () => {
     status: "Upcoming",
     category: "Other",
   });
+
+  const auth = useAppSelector((store) => store.Auth);
+  const { user, accessToken } = auth;
 
   const [loading, setLoading] = useState(false);
 
@@ -33,9 +37,12 @@ const AddTasks = () => {
     try {
       setLoading(true);
       const response = await axios.post(`/api/tasks`,
-        task,
+        task, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
       );
-
       setTask({
         taskTitle: "",
         taskDesc: "",
@@ -94,7 +101,7 @@ const AddTasks = () => {
           value={task.taskDesc}
           onChange={handleChange}
           required
-         // rows="2"
+          // rows="2"
           className="mt-1 block w-full border border-gray-300 rounded-md p-2"
         ></textarea>
       </div>

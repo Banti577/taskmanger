@@ -4,7 +4,7 @@ import User from '../Models/usersModel'
 
 import { generatejwttoken } from '../services/authentication';
 import { SignupUser, LoginUser } from '@/lib/types/AuthInterface/authInterface';
-import {MUser} from '@/lib/types/ModelInterface/usermodel.interface'
+import { MUser } from '@/lib/types/ModelInterface/usermodel.interface'
 
 
 export const handleSignup = async (body: SignupUser) => {
@@ -34,7 +34,7 @@ export const handleSignup = async (body: SignupUser) => {
 export const handleLogin = async (body: LoginUser) => {
 
     const { email, password } = body;
-    const isExist:MUser | null = await User.findOne({ email })
+    const isExist: MUser | null = await User.findOne({ email })
 
     if (!isExist) {
         throw new Error("User not found");
@@ -42,9 +42,9 @@ export const handleLogin = async (body: LoginUser) => {
     const isMatch = await bcryptjs.compare(password, isExist.password)
     if (!isMatch) { throw new Error('Password not Match') }
 
-    const token = generatejwttoken(isExist)
+    const { accessToken, refreshToken } = generatejwttoken(isExist)
 
-    return { user: isExist, token };
+    return { user: isExist, accessToken, refreshToken };
 
 }
 
