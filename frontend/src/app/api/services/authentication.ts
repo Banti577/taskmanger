@@ -26,19 +26,19 @@ export const generatejwttoken = (user) => {
     return { accessToken, refreshToken }
 }
 
-export const generateAccessToken =(user) =>{
-      const payload: AuthJwtPayload = {
+export const generateAccessToken = (user) => {
+    const payload: AuthJwtPayload = {
         id: user._id,
         fullname: user.fullName,
         email: user.email,
         gender: user.gender,
     }
 
-     const accessToken = jwt.sign(
+    const accessToken = jwt.sign(
         payload,
         process.env.JWT_SECRET as string,
         { expiresIn: '1h' }
     )
 
-      return { accessToken }
+    return { accessToken }
 }

@@ -18,7 +18,7 @@ const AddTasks = () => {
   });
 
   const auth = useAppSelector((store) => store.Auth);
-  const { user, accessToken } = auth;
+  const {accessToken } = auth;
 
   const [loading, setLoading] = useState(false);
 

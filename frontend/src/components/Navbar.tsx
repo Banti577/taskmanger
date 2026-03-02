@@ -14,25 +14,25 @@ import { logout } from "@/lib/features/authSlice";
 import { useAppSelector } from "@/lib/redux/type";
 
 const Navbar = () => {
+  const accessToken = useAppSelector(store => store.Auth.accessToken)
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const auth = useAppSelector((store ) => store.Auth);
-
-  console.log('navbar me user is', auth.user)
+  const auth = useAppSelector((store) => store.Auth);
 
   const handleLogout = async () => {
     try {
       const response = await axios(
-        `/api/auth/logout`,
-        {
-          withCredentials: true,
-        },
-      );
+        `/api/auth/logout`, {
+        headers: {
+          Authorization: `Bearer ${accessToken} `
+        }
+      });
 
       if (response.status == 200) {
         dispatch(logout());
-        toast.success(response.data.message);
+
+        // toast.success(response.data?.msg || response.data || response);
         router.push("/login");
       }
     } catch (err) {
